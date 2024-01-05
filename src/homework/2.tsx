@@ -1,5 +1,22 @@
 import React, {useReducer} from "react";
 
+  type RequestStep = 
+  | 'idle' 
+  | 'start'
+  | 'pending'
+  | 'finished'
+
+  type State = 
+  | {isRequestInProgress: boolean}
+  | {requestStep: RequestStep}
+
+  type Action = 
+  | {type:`START_REQUEST`}
+  | {type:`PENDING_REQUEST`}
+  | {type:`FINISH_REQUEST`}
+  | {type:`RESET_REQUEST`}
+  
+
 const initialState: State = {
   isRequestInProgress: false,
   requestStep: 'idle',
@@ -43,7 +60,7 @@ export function RequestComponent() {
     <div>
       <button onClick={startRequest}>Почати запит</button>
       <button onClick={resetRequest}>Скинути запит</button>
-      <p>Стан запиту: {requestState.requestStep}</p>
+      <p>Стан запиту: {(requestState as { requestStep?: RequestStep }).requestStep}</p>
     </div>
   );
 }
